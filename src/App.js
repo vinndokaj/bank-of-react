@@ -1,3 +1,4 @@
+//https://gist.github.com/ajLapid718/0a95c08420ea645735bac88113928f63
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './Components/Home';
@@ -13,8 +14,22 @@ class App extends Component {
       currentUser: {
         userName: 'bob_loblaw',
         memberSince: '08/23/99',
-      }
+      },
+      debits : [],
+      credits : []
     }
+    this.addCredit = this.addCredit.bind(this);
+    this.addDebit = this.addDebit.bind(this);
+  }
+
+  addDebit = (debit) => {
+    const newBalance = (this.state.accountBalance - debit);
+    this.setState({accountBalance : newBalance});
+  }
+
+  addCredit = (credit) => {
+    const newBalance = (this.state.accountBalance - credit);
+    this.setState({accountBalance : newBalance});
   }
 
   mockLogIn = (logInInfo) => {
