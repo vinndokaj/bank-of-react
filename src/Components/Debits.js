@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import DebitCard from './DebitCard'
 import AccountBalance from './AccountBalance';
 import NewEntry from './NewEntry';
+import EntryCard from './EntryCard';
 
 export default class Debits extends Component {
     render() {
@@ -12,7 +12,7 @@ export default class Debits extends Component {
                 <AccountBalance accountBalance={this.props.accountBalance}/>
                 <NewEntry addEntry={this.props.addDebit} />
                 {this.props.debits.map((debit, index) => {
-                    return <DebitCard key={index} deb={debit}/>
+                    return <EntryCard key={index} name={`Debit: ${index+1}`} deb={debit}/>
                 })}
                 <Link to="/">Back to Home</Link>
             </div>

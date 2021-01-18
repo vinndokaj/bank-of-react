@@ -17,7 +17,7 @@ class App extends Component {
         userName: 'bob_loblaw',
         memberSince: '08/23/99',
       },
-      debits : [{description:'poop', amount:123, date:"12-10-2021"}],
+      debits : [],
       credits : []
     }
     this.addCredit = this.addCredit.bind(this);
@@ -34,8 +34,12 @@ class App extends Component {
   }
 
   addCredit = (credit) => {
-    const newBalance = (this.state.accountBalance - credit);
-    this.setState({accountBalance : newBalance});
+    let newArr = [...this.state.credits];
+    newArr.push(credit);
+    this.setState({credits : newArr});
+    this.setState({
+      accountBalance : (this.state.accountBalance + + credit.amount)
+    });
   }
 
   mockLogIn = (logInInfo) => {
