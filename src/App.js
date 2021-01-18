@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './Components/Home';
 import UserProfile from './Components/UserProfile';
 import LogIn from './Components/Login';
+import Debits from './Components/Debits';
 
 class App extends Component {
   constructor() {
@@ -44,6 +45,7 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} {...this.props}/>)
+    const DebitComponent = () => (<Debits debits={this.state.debits} addDebit={this.addDebit}/>)
 
     return (
       <Router>
@@ -51,6 +53,7 @@ class App extends Component {
             <Route exact path="/" component={HomeComponent}/>
             <Route exact path="/userProfile" component={UserProfileComponent}/>
             <Route exact path="/login" render={LogInComponent}/>
+            <Route exact path='/debits' component={DebitComponent}/>
         </Switch>
       </Router> 
     );
