@@ -12,7 +12,7 @@ class App extends Component {
     super();
 
     this.state = {
-      accountBalance: 14568.27,
+      accountBalance: 0,//14568.27,
       currentUser: {
         userName: 'bob_loblaw',
         memberSince: '08/23/99',
@@ -22,6 +22,43 @@ class App extends Component {
     }
     this.addCredit = this.addCredit.bind(this);
     this.addDebit = this.addDebit.bind(this);
+  }
+
+  componentDidMount(){
+    //adding credits from api
+    fetch('https://moj-api.herokuapp.com/credits')
+    .then(response => {
+        if (response.status !== 200) {
+        throw new Error("Problem fetching credits");
+        }
+        return response.json();
+    })
+    .then(creds => {
+        for(let i = 0; i < creds.length; i++){
+          this.addCredit(creds[i]);
+        }
+    })
+    .catch(error => {
+        console.log("error", error)
+    });
+
+    //adding debits from api
+    fetch('https://moj-api.herokuapp.com/debits')
+    .then(response => {
+        if (response.status !== 200) {
+        throw new Error("Problem fetching debits");
+        }
+        return response.json();
+    })
+    .then(debs => {
+        for(let i = 0; i < debs.length; i++){
+          this.addDebit(debs[i]);
+        }
+    })
+    .catch(error => {
+        console.log("error", error)
+    });
+
   }
 
   addDebit = (debit) => {
